@@ -1,0 +1,96 @@
+
+
+<div>
+    <div>
+        <form >
+            <mat-form-field >From (minutes)
+              <input matInput value="" [(ngModel)]="fromField" name="fromField"> 
+            </mat-form-field>
+          
+            <mat-form-field >To
+              <input matInput value="now" disabled>
+            </mat-form-field>
+
+            <button mat-button style="background-color:#8fd7e4" (click)="getPerformanceMatrixData()">Show Performance Matrix</button>
+          </form>
+      </div>
+  <br />
+  <mat-card *ngIf="showPerformanceMatrix">
+    <br /><br />
+    <mat-divider></mat-divider>
+    <br />
+
+    <table mat-table [dataSource]="avgTime">
+      <ng-container matColumnDef="API">
+        <th mat-header-cell *matHeaderCellDef>API URL</th>
+        <td mat-cell *matCellDef="let element">{{ element.url.split("^")[0] }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="methodType">
+        <th mat-header-cell *matHeaderCellDef>Method Type</th>
+        <td mat-cell *matCellDef="let element">{{ element.url.split("^")[1] }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="muleAvgTime">
+        <th mat-header-cell *matHeaderCellDef class="mat-column-right">
+          Average Node Time
+        </th>
+        <td mat-cell class="mat-column-right" *matCellDef="let element">
+          {{ element.muleAvgTime | number: "1.0-3" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="DBAvgTime">
+        <th mat-header-cell *matHeaderCellDef class="mat-column-right">
+          Average DB Time
+        </th>
+        <td mat-cell class="mat-column-right" *matCellDef="let element">
+          {{ element.DBAvgTime | number: "1.0-3" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="authAvgTime">
+        <th mat-header-cell *matHeaderCellDef class="mat-column-right">
+          Average Auth Time
+        </th>
+        <td mat-cell class="mat-column-right" *matCellDef="let element">
+          {{ element.authAvgTime | number: "1.0-3" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="APIcount">
+        <th mat-header-cell *matHeaderCellDef class="mat-column-right">
+          API Count
+        </th>
+        <td mat-cell class="mat-column-right" *matCellDef="let element">
+          {{ element.APIcount }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="More details">
+        <th mat-header-cell class="mat-column-right" *matHeaderCellDef>
+          More details
+        </th>
+        <td mat-cell class="mat-column-right" *matCellDef="let element; let i = index;">
+          <button mat-button color="primary" (click)="displayInfo(i)">Details</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <br /><br />
+    <br />
+
+    <mat-progress-spinner
+      *ngIf="isLoading"
+      style="margin:0 auto;"
+      color="primary"
+      mode="indeterminate"
+    >
+    </mat-progress-spinner>
+
+    <br />
+  </mat-card>
+</div>

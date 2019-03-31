@@ -1,0 +1,5 @@
+{
+  "muleURL": "https://lineage.loggly.com/apiv2/events?q=%20json.URL_PATH:*%20%20json.Tags:Lineage_Mule_Logs_uat&size=500&",
+  "DBURL": "https://lineage.loggly.com/apiv2/events?q=%20json.name:LineageDBSlowQuery%20%20json.ENV:Perf%20%20json.GlobalTrasactionId:*&size=500&",
+  "AuthURL": "https://lineage.loggly.com/apiv2/events?q=%20json.name:AuthorizationTime%20%20json.ENV:Perf&size=500&"
+}
